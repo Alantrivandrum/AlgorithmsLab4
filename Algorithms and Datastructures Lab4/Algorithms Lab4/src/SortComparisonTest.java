@@ -19,6 +19,83 @@ import java.util.concurrent.TimeUnit;
  *
  *  @author	Alan Abraham
  *  @version HT 2020
+ *  
+ *  |----------------------+--------+-----------+----------------+-----------------+-------|
+	| DataSets             | Insert | Selection | Merge-Recursive | MergeIterative | Quick |
+	|----------------------+--------+-----------+----------------+-----------------+-------|
+	| 10 random            | 0ms    | 0ms       | 0ms            | 0ms             | 0ms   |
+	|----------------------+--------+-----------+----------------+-----------------+-------|
+	| 100 random           | 0ms    | 0ms       | 0ms            | 0ms             | 0ms   |
+	|----------------------+--------+-----------+----------------+-----------------+-------|
+	| 1000 random          | 1ms    | 3.5ms     | 0ms            | 0ms             | 0ms   |
+	|----------------------+--------+-----------+----------------+-----------------+-------|
+	| 1000 few unique      | 1.5ms  | 2ms       | 0ms            | 0ms             | 0ms   |
+	|----------------------+--------+-----------+----------------+-----------------+-------|
+	| 1000 nearly ordered  | 1ms    | 2ms       | 0ms            | 0ms             | 0ms   |
+	|----------------------+--------+-----------+----------------+-----------------+-------|
+	| 1000 reverse order   | 8ms    | 2ms       | 0ms            | 0ms             | 1ms   |
+	|----------------------+--------+-----------+----------------+-----------------+-------|
+	| 1000 sorted          | 0ms    | 2ms       | 0ms            | 0ms             | 2ms   |
+	|----------------------+--------+-----------+----------------+-----------------+-------|
+	| 10000 random         | 11ms   | 16ms      | 2ms            | 1ms             | 2ms   |
+	|	-------------------+--------+-----------+----------------+-----------------+-------|
+	| 100000 random        | 931ms  | 1421ms    | 9ms            | 8ms             | 6ms   |
+	|----------------------+--------+-----------+----------------+-----------------+-------|
+	| 10000 few unique     | 11.5ms | 16ms      | 1ms            | 0ms             | 1.5ms |
+	|----------------------+--------+-----------+----------------+-----------------+-------|
+	| 10000 reverse order  | 17ms   | 21ms      | 3ms            | 0ms             | 18ms  |
+	|----------------------+--------+-----------+----------------+-----------------+-------|
+	| 10000 sorted         | 0ms    | 10ms      | 0ms            | 0ms             | 17ms  |
+	|----------------------+--------+-----------+----------------+-----------------+-------|
+	| 10000 nearly ordered | 3ms    | 11.5ms    | 0ms            | 0ms             | 1.5ms |
+	|----------------------+--------+-----------+----------------+-----------------+-------|
+ *  
+ *  
+ * (a) Which of the sorting algorithms does the order of input have an impact on? Why?
+ * 
+ * 		Insert sort - The more sorted the array, the less swaps will occur.
+ * 		Quick sort - By choosing a partition index the algorithm sorts the array for elements to be on either side of the pivot, if the array is sorted already, 
+ * 					 it will take a lot longer!
+ * 
+ * 
+ * (b) Which algorithm has the biggest difference between the best and worst performance, based on the type of input, for the input of size 1000? Why?
+ * 
+ * 		Insert sort - Depends on if the array is sorted already, if it is, insertion sort is of O(n), otherwise it is O(n^2) 
+ * 
+ * (c) Which algorithm has the best/worst scalability, i.e., the difference in performance time based on the input size? Please consider only input files with random order for this answer.
+ * 		
+ * 		Best performance :    Merge Iterative
+ * 		Worst performance:   Selection
+ * 
+ * (d) Did you observe any difference between iterative and recursive implementations of merge sort?
+ * 
+ * 		Yes - Merge Iterative seems to scale and perform much better than the recursive implementation.
+ * 
+ * (e) Which algorithm is the fastest for each of the 7 input files?
+ * 		10 random:           Selection
+ * 		100 random:          Merge Iterative
+ * 		1000 random:         Merge Recursive
+ * 		1000 few unique:     Merge Iterative
+ * 		1000 nearly ordered: Merge Iterative
+ * 		1000 reverse order:  Merge Iterative
+ * 		1000 sorted:         Insert
+ *
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
+ *  
  */
 @RunWith(JUnit4.class)
 public class SortComparisonTest
